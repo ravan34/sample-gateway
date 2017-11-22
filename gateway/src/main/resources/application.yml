@@ -1,0 +1,35 @@
+# Spring Boot configuration
+spring:
+  profiles:
+    active: ping
+# Spring Security configuration
+security:
+  oauth2:
+    client:
+      clientId: sampleClient
+      clientSecret: sampleSecret#
+      accessTokenUri: https://graph.facebook.com/oauth/access_token
+      userAuthorizationUri: https://www.facebook.com/dialog/oauth
+      clientAuthenticationScheme: form
+      scope: openid, profile
+    resource:
+      userInfoUri: https://graph.facebook.com/me
+      preferTokenInfo: true
+
+      
+# Zuul configuration 
+zuul:
+  routes: 
+    resource:
+      path: /resource/**
+      url: http://localhost:9090/resource-service/
+    plan:
+      path: /plan/**
+      url: http://localhost:7070
+# Server configuration
+server:
+ port: 8080 #default
+ 
+logging:
+  level:
+    org.springframework.security: DEBUG
